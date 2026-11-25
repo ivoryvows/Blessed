@@ -111,13 +111,13 @@ body:before{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 27'%3E%3Cpath d='M0 14 Q30 0 60 14 T120 14 T180 14 T240 14 V27 H0 Z' fill='%23f1d9df'/%3E%3Cpath d='M0 20 Q30 8 60 20 T120 20 T180 20 T240 20 V27 H0 Z' fill='%23f8e9ec'/%3E%3C/svg%3E");
 }
 
-/* OPENING - ONLY ENV.MP4 */
+/* OPENING - ENV.MP4 AUTOPLAY */
 
 .intro{
   position:fixed;
   inset:0;
   z-index:100;
-  background:#000;
+  background:#fffdf9;
   display:grid;
   place-items:center;
   overflow:hidden;
@@ -140,7 +140,7 @@ body:before{
   height:100%;
   object-fit:cover;
   display:block;
-  background:#000;
+  background:#fffdf9;
 }
 
 .intro-content{
@@ -704,7 +704,7 @@ main{
   left:0;
   top:-16px;
   font-size:23px;
-  color:#c28b99;
+  color:#e6a6b7;
   transform:rotate(10deg);
   filter:drop-shadow(0 2px 2px #fff);
   text-shadow:0 0 8px rgba(255,255,255,.9);
@@ -879,13 +879,14 @@ main{
 
 <body>
 
-<!-- OPENING: ENV.MP4 ONLY -->
+<!-- OPENING: ENV.MP4 AUTOPLAY -->
 
 <div class="intro" id="intro">
 
   <video class="intro-video"
     id="introVideo"
     src="./env.MP4"
+    autoplay
     playsinline
     webkit-playsinline
     muted
@@ -899,7 +900,7 @@ main{
   </div>
 
   <div class="tap-hint" id="tapHint">
-    Tap to open
+    Tap for music
   </div>
 
 </div>
@@ -1186,7 +1187,7 @@ document.querySelectorAll(".dot-section").forEach(section=>{
 
 });
 
-/* OPENING VIDEO + TAP TO OPEN */
+/* OPENING VIDEO AUTOPLAY + TAP FOR MUSIC */
 
 const intro=document.getElementById("intro");
 const introVideo=document.getElementById("introVideo");
@@ -1196,7 +1197,7 @@ const musicControl=document.getElementById("musicControl");
 const musicIcon=document.getElementById("musicIcon");
 const tapHint=document.getElementById("tapHint");
 
-let started=false;
+let musicStarted=false;
 let introFinished=false;
 
 function setMusicIcon(){
@@ -1211,43 +1212,70 @@ function setMusicIcon(){
   );
 }
 
-/* Visitor taps opening screen */
+/* Start music after visitor interaction */
 
-async function beginInvitation(){
+async function startMusic(){
 
-  if(started)return;
-  started=true;
-
-  tapHint.style.display="none";
   musicControl.classList.add("visible");
-
   music.volume=.72;
+
+  if(musicStarted && !music.paused){
+    setMusicIcon();
+    return;
+  }
 
   try{
     await music.play();
+    musicStarted=true;
   }catch(e){
-    console.log("Music playback needs another tap:",e);
+    musicStarted=false;
+    console.log("Music playback needs a user tap:",e);
   }
 
+  setMusicIcon();
+}
+
+/* Try to autoplay opening video */
+
+async function tryPlayIntro(){
+
+  if(introFinished || !introVideo.paused)return;
+
   introVideo.muted=true;
-  introVideo.currentTime=0;
 
   try{
     await introVideo.play();
+    tapHint.textContent="Tap for music";
   }catch(e){
-    console.log("Opening video could not play:",e);
-    finishIntro();
+    console.log("Autoplay was blocked:",e);
+    tapHint.textContent="Tap to play video & music";
   }
 }
+
+/* Tap opening screen: music starts, video continues */
+
+function beginInvitation(){
+
+  if(introFinished)return;
+
+  startMusic();
+
+  if(introVideo.paused){
+    tryPlayIntro();
+  }
+
+  tapHint.style.display="none";
+}
+
+/* When env.MP4 ends, play family.MOV */
 
 function finishIntro(){
 
   if(introFinished)return;
+
   introFinished=true;
 
   intro.classList.add("hidden");
-
-  /* Play family video after env.MP4 */
 
   familyVideo.currentTime=0;
 
@@ -1255,8 +1283,9 @@ function finishIntro(){
 
     document.querySelector(".family-wrap").classList.add("reveal");
 
-  }).catch(()=>{
+  }).catch(error=>{
 
+    console.log("Family video playback issue:",error);
     document.querySelector(".family-wrap").classList.add("reveal");
 
   });
@@ -1267,9 +1296,25 @@ function finishIntro(){
 
 intro.addEventListener("click",beginInvitation);
 
-/* When env.MP4 ends, show family.MOV */
+/* Opening video ends */
 
 introVideo.addEventListener("ended",finishIntro);
+
+/* Retry autoplay when video data is ready */
+
+introVideo.addEventListener("loadeddata",()=>{
+  if(introVideo.paused && !introFinished){
+    tryPlayIntro();
+  }
+});
+
+/* Try autoplay immediately and again after page load */
+
+tryPlayIntro();
+
+window.addEventListener("load",()=>{
+  tryPlayIntro();
+});
 
 /* MUSIC CONTROL */
 
