@@ -13,11 +13,8 @@
 
 <style>
 :root{
-  --ivory:#fffdf9;
-  --pink:#f4e1e5;
-  --rose:#bd8791;
-  --ink:#68504d;
-  --gold:#b99a70;
+  --ivory:#fffdf9;--pink:#f4e1e5;--rose:#bd8791;
+  --ink:#68504d;--gold:#b99a70;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -62,7 +59,7 @@ body:before{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 27'%3E%3Cpath d='M0 14 Q30 0 60 14 T120 14 T180 14 T240 14 V27 H0 Z' fill='%23f1d9df'/%3E%3Cpath d='M0 20 Q30 8 60 20 T120 20 T180 20 T240 20 V27 H0 Z' fill='%23f8e9ec'/%3E%3C/svg%3E");
 }
 
-/* OPENING SCREEN */
+/* OPENING */
 .intro{
   position:fixed;inset:0;z-index:100;background:#fffdf9;
   display:grid;place-items:center;overflow:hidden;cursor:pointer;
@@ -70,16 +67,12 @@ body:before{
   transition:opacity 1.2s ease,visibility 1.2s ease;
 }
 .intro.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.intro-poster{
+.intro-poster,.intro-video{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;display:block;background:#fffdf9;
-  opacity:1;transition:opacity .45s ease;
 }
-.intro-video{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;display:block;background:#fffdf9;
-  opacity:0;transition:opacity .45s ease;
-}
+.intro-poster{opacity:1;transition:opacity .45s ease}
+.intro-video{opacity:0;transition:opacity .45s ease}
 .intro.video-playing .intro-video{opacity:1}
 .intro.video-playing .intro-poster{opacity:0}
 .intro-content{
@@ -339,24 +332,26 @@ main{max-width:100%;overflow:hidden;position:relative}
   height:2px;flex:1;max-width:210px;min-width:30px;
   border-top:2px dotted #e7a6b7;position:relative;
 }
+
+/* SOLID PINK SVG AIRPLANE - NOT AN EMOJI */
 .plane{
   position:absolute;
   left:0;
-  top:-16px;
-  font-size:25px;
-  color:#ff1493;
-  -webkit-text-fill-color:#ff1493;
-  filter:none;
-  text-shadow:none;
+  top:-15px;
+  width:30px;
+  height:30px;
+  display:block;
   opacity:0;
-  transform:rotate(10deg);
+  fill:#ff1493;
+  color:#ff1493;
+  pointer-events:none;
 }
 .najaf.in-view .plane{animation:fly 3.5s ease-in-out forwards}
 @keyframes fly{
   0%{left:0;opacity:0}
   8%{opacity:1}
-  88%{left:calc(100% - 22px);opacity:1}
-  100%{left:calc(100% - 22px);opacity:1}
+  88%{left:calc(100% - 30px);opacity:1}
+  100%{left:calc(100% - 30px);opacity:1}
 }
 .najaf .video-card{transform:translateX(-7px)}
 .address{
@@ -441,25 +436,15 @@ main{max-width:100%;overflow:hidden;position:relative}
 
 <!-- OPENING: IMG.JPG SHOWS FIRST -->
 <div class="intro" id="intro">
-
-  <img class="intro-poster"
-    id="introPoster"
-    src="./img.jpg"
+  <img class="intro-poster" id="introPoster" src="./img.jpg"
     alt="Saniya Fatema and Ali Jawad wedding invitation">
 
-  <video class="intro-video"
-    id="introVideo"
-    src="./env.mov"
-    playsinline
-    webkit-playsinline
-    muted
-    preload="auto">
-  </video>
+  <video class="intro-video" id="introVideo" src="./env.mov"
+    playsinline webkit-playsinline muted preload="auto"></video>
 
   <div class="intro-content">
     <div class="intro-names">Saniya Fatema &amp; Ali Jawad</div>
   </div>
-
 </div>
 
 <audio id="music" src="./nasheed.mp3" loop preload="auto"></audio>
@@ -473,9 +458,7 @@ main{max-width:100%;overflow:hidden;position:relative}
 <!-- FAMILY VIDEO -->
 <section class="family-wrap dot-section" id="top">
   <video class="family-video" id="familyVideo"
-    src="./family.MOV"
-    playsinline webkit-playsinline muted preload="auto">
-  </video>
+    src="./family.MOV" playsinline webkit-playsinline muted preload="auto"></video>
 </section>
 
 <!-- WELCOME -->
@@ -513,18 +496,9 @@ main{max-width:100%;overflow:hidden;position:relative}
     Gently uncover each keepsake to reveal the date of our celebration.
   </p>
   <div class="scratch-row">
-    <div class="scratch-card">
-      <div class="revealed">28</div>
-      <canvas aria-label="Scratch to reveal"></canvas>
-    </div>
-    <div class="scratch-card">
-      <div class="revealed">Dec</div>
-      <canvas aria-label="Scratch to reveal"></canvas>
-    </div>
-    <div class="scratch-card">
-      <div class="revealed">2026</div>
-      <canvas aria-label="Scratch to reveal"></canvas>
-    </div>
+    <div class="scratch-card"><div class="revealed">28</div><canvas aria-label="Scratch to reveal"></canvas></div>
+    <div class="scratch-card"><div class="revealed">Dec</div><canvas aria-label="Scratch to reveal"></canvas></div>
+    <div class="scratch-card"><div class="revealed">2026</div><canvas aria-label="Scratch to reveal"></canvas></div>
   </div>
 </section>
 
@@ -545,16 +519,12 @@ main{max-width:100%;overflow:hidden;position:relative}
 <section class="ivory-section celebration dot-section">
   <h2 class="event-heading">Join Us for the Celebrations</h2>
   <div class="video-card">
-    <video class="scroll-video" id="zehraVideo"
-      src="./zehra.MOV"
-      playsinline webkit-playsinline muted preload="metadata">
-    </video>
+    <video class="scroll-video" id="zehraVideo" src="./zehra.MOV"
+      playsinline webkit-playsinline muted preload="metadata"></video>
   </div>
   <a class="map-button"
     href="https://www.google.com/maps/search/?api=1&amp;query=Bargha+e+Imam+Hussain+Vartej+Sisdar+Road+Gujarat+India"
-    target="_blank" rel="noopener">
-    View on Map ↗
-  </a>
+    target="_blank" rel="noopener">View on Map ↗</a>
 </section>
 
 <!-- NAJAF JOURNEY -->
@@ -571,22 +541,25 @@ main{max-width:100%;overflow:hidden;position:relative}
 
   <div class="flight">
     <img class="india-flag" src="https://flagcdn.com/w160/in.png" alt="India flag">
-    <div class="flight-path"><span class="plane">✈</span></div>
+
+    <div class="flight-path">
+      <!-- SOLID PINK SVG AIRPLANE -->
+      <svg class="plane" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path fill="#ff1493" d="M59.5 5.2c-1.7-1.7-4.4-1.8-6.3-.3L37.5 18.1 15.7 9.4c-1.1-.4-2.3-.2-3.1.7l-2.2 2.2c-.9.9-.8 2.4.2 3.2l16.1 12.3-12.1 10.1-7.8-2.1c-.9-.2-1.8 0-2.5.7l-1.5 1.5c-.9.9-.8 2.4.2 3.2l10.4 7.1 7.1 10.4c.8 1 2.3 1.1 3.2.2l1.5-1.5c.7-.7.9-1.6.7-2.5l-2.1-7.8 10.1-12.1 12.3 16.1c.8 1 2.3 1.1 3.2.2l2.2-2.2c.8-.8 1.1-2 .7-3.1l-8.7-21.8 13.2-15.7c1.5-1.9 1.4-4.6-.3-6.3z"/>
+      </svg>
+    </div>
+
     <img class="roza" src="./roza.PNG" alt="Roza of Imam Ali">
   </div>
 
   <div class="video-card">
-    <video class="scroll-video" id="wedVideo"
-      src="./wed.MOV"
-      playsinline webkit-playsinline muted preload="metadata">
-    </video>
+    <video class="scroll-video" id="wedVideo" src="./wed.MOV"
+      playsinline webkit-playsinline muted preload="metadata"></video>
   </div>
 
   <a class="map-button"
     href="https://www.google.com/maps/search/?api=1&amp;query=Shrine+of+Imam+Ali+Najaf+Iraq"
-    target="_blank" rel="noopener">
-    View on Map ↗
-  </a>
+    target="_blank" rel="noopener">View on Map ↗</a>
   <p class="address">Shrine of Imam Ali<br>Najaf, Iraq</p>
 </section>
 
@@ -662,7 +635,7 @@ document.querySelectorAll(".dot-section").forEach(section=>{
   });
 });
 
-/* OPENING: IMG.JPG FIRST, THEN ENV.MOV + MUSIC */
+/* OPENING + FAMILY VIDEO PRELOADING */
 const intro=document.getElementById("intro");
 const introVideo=document.getElementById("introVideo");
 const familyVideo=document.getElementById("familyVideo");
@@ -672,6 +645,15 @@ const musicIcon=document.getElementById("musicIcon");
 
 let introFinished=false;
 let invitationStarted=false;
+let familyReady=false;
+
+/* Start loading family video while opening video plays */
+function preloadFamilyVideo(){
+  if(familyReady)return;
+  familyReady=true;
+  familyVideo.preload="auto";
+  familyVideo.load();
+}
 
 function setMusicIcon(){
   const playing=!music.paused;
@@ -682,7 +664,7 @@ function setMusicIcon(){
   );
 }
 
-/* Tap anywhere on the opening image to start video and music */
+/* Tap opening screen to start video and music */
 function beginInvitation(){
   if(introFinished || invitationStarted)return;
 
@@ -691,7 +673,9 @@ function beginInvitation(){
   music.volume=.72;
   musicControl.classList.add("visible");
 
-  /* Both start directly from the same tap */
+  /* Begin family video loading immediately */
+  preloadFamilyVideo();
+
   const videoPromise=introVideo.play();
   const musicPromise=music.play();
 
@@ -700,32 +684,48 @@ function beginInvitation(){
     invitationStarted=false;
   });
 
-  musicPromise.then(()=>{
-    setMusicIcon();
-  }).catch(error=>{
+  musicPromise.then(setMusicIcon).catch(error=>{
     console.log("Music playback issue:",error);
     setMusicIcon();
   });
 }
 
-/* Show env.mov only when playback actually begins */
+/* Show env.mov only when it actually starts */
 introVideo.addEventListener("playing",()=>{
   intro.classList.add("video-playing");
 });
 
-/* When env.mov ends, move to family video */
+/* When env.mov ends, play family video */
 function finishIntro(){
   if(introFinished)return;
   introFinished=true;
+
   intro.classList.add("hidden");
 
+  /* Ensure family video has started loading */
+  preloadFamilyVideo();
+
   familyVideo.currentTime=0;
-  familyVideo.play().then(()=>{
-    document.querySelector(".family-wrap").classList.add("reveal");
-  }).catch(error=>{
-    console.log("Family video playback issue:",error);
-    document.querySelector(".family-wrap").classList.add("reveal");
-  });
+
+  const startFamily=()=>{
+    familyVideo.play().then(()=>{
+      document.querySelector(".family-wrap").classList.add("reveal");
+    }).catch(error=>{
+      console.log("Family video playback issue:",error);
+      document.querySelector(".family-wrap").classList.add("reveal");
+    });
+  };
+
+  /* If video is ready, start immediately.
+     Otherwise wait until enough data is available. */
+  if(familyVideo.readyState>=3){
+    startFamily();
+  }else{
+    familyVideo.addEventListener("canplay",startFamily,{once:true});
+    familyVideo.addEventListener("error",()=>{
+      console.log("Family video could not load. Check file name and hosting.");
+    },{once:true});
+  }
 }
 
 intro.addEventListener("click",beginInvitation);
@@ -895,7 +895,7 @@ document.querySelectorAll(".scroll-video").forEach(video=>{
   videoObserver.observe(video);
 });
 
-/* NAJAF PINK PLANE ANIMATION */
+/* NAJAF SOLID PINK PLANE ANIMATION */
 const najafSection=document.getElementById("najafSection");
 
 if("IntersectionObserver" in window){
