@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#fffdf8">
+<meta name="theme-color" content="#fffdf9">
 <title>Saniya & Ali Jawad | Wedding Invitation</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,8 +13,8 @@
 
 <style>
 :root{
-  --ivory:#fffdf8;
-  --pink:#f3dce0;
+  --ivory:#fffdf9;
+  --pink:#f4e1e5;
   --rose:#bd8791;
   --ink:#68504d;
   --gold:#b99a70;
@@ -39,11 +39,11 @@ body:before{
   inset:0;
   pointer-events:none;
   z-index:20;
-  opacity:.065;
+  opacity:.055;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
 }
 
-/* WHITE FALLING DOTS THROUGHOUT THE WEBSITE */
+/* SIMPLE FALLING DOTS */
 
 .dot-section{
   position:relative;
@@ -53,36 +53,64 @@ body:before{
 .dot-field{
   position:absolute;
   inset:0;
-  z-index:3;
+  z-index:6;
   overflow:hidden;
   pointer-events:none;
 }
 
 .ambient-dot{
   position:absolute;
-  top:-8px;
+  top:-12px;
+  display:block;
   border-radius:50%;
   background:#fff;
-  border:1px solid rgba(255,255,255,.95);
-  box-shadow:
-    0 0 3px rgba(255,255,255,1),
-    0 0 7px rgba(255,255,255,.9),
-    0 0 11px rgba(214,160,174,.55);
+  border:none;
+  box-shadow:none;
   animation:ambientFall linear infinite;
   will-change:transform,opacity;
 }
 
+.ambient-dot.pink-dot{
+  background:#edcbd4;
+  border:none;
+  box-shadow:none;
+}
+
 @keyframes ambientFall{
   0%{
-    transform:translate3d(0,-12px,0);
+    transform:translate3d(0,-15px,0);
     opacity:0;
   }
-  12%{opacity:.95}
-  75%{opacity:.85}
+  12%{opacity:.85}
+  78%{opacity:.75}
   100%{
-    transform:translate3d(var(--drift),110%,0);
+    transform:translate3d(var(--drift),var(--fall),0);
     opacity:0;
   }
+}
+
+/* PINK ZIGZAG WATER WAVES */
+
+.water-wave{
+  position:absolute;
+  left:0;
+  width:100%;
+  height:27px;
+  z-index:3;
+  pointer-events:none;
+  background-repeat:repeat-x;
+  background-size:240px 27px;
+}
+
+.top-wave{
+  top:0;
+  transform:rotate(180deg);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 27'%3E%3Cpath d='M0 0 H240 V13 Q210 27 180 13 T120 13 T60 13 T0 13 Z' fill='%23f1d9df'/%3E%3Cpath d='M0 0 H240 V7 Q210 19 180 7 T120 7 T60 7 T0 7 Z' fill='%23f8e9ec'/%3E%3C/svg%3E");
+}
+
+.bottom-wave{
+  bottom:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 27'%3E%3Cpath d='M0 14 Q30 0 60 14 T120 14 T180 14 T240 14 V27 H0 Z' fill='%23f1d9df'/%3E%3Cpath d='M0 20 Q30 8 60 20 T120 20 T180 20 T240 20 V27 H0 Z' fill='%23f8e9ec'/%3E%3C/svg%3E");
 }
 
 /* OPENING */
@@ -144,37 +172,52 @@ main{
   position:relative;
 }
 
-/* FAMILY VIDEO */
+/* FULL SCREEN FAMILY VIDEO */
 
 .family-wrap{
-  background:var(--ivory);
-  padding:0 0 19px;
-  text-align:center;
   position:relative;
   isolation:isolate;
+  width:100%;
+  height:100svh;
+  min-height:100svh;
+  padding:0;
+  margin:0;
+  overflow:hidden;
+  background:#f8f1e9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .family-video{
   display:block;
-  width:min(100%,520px);
-  max-height:78vh;
-  object-fit:contain;
-  margin:0 auto;
-  background:#f8f1e9;
   position:relative;
   z-index:4;
+  width:100%;
+  height:100%;
+  max-height:none;
+  object-fit:cover;
+  object-position:center;
+  margin:0;
+  background:#f8f1e9;
 }
 
 .scroll-cue{
   display:none;
+  position:absolute;
+  z-index:7;
+  bottom:22px;
+  left:0;
+  right:0;
   margin:12px auto 0;
-  color:#a77f83;
+  color:#fff;
   letter-spacing:.16em;
   text-transform:uppercase;
   font-size:.78rem;
-  position:relative;
-  z-index:4;
+  text-shadow:0 1px 7px rgba(70,40,45,.65);
+  text-align:center;
   animation:bob 1.7s infinite;
+  cursor:pointer;
 }
 
 .scroll-cue.show{display:block}
@@ -196,7 +239,9 @@ main{
   text-align:center;
   position:relative;
   isolation:isolate;
-  box-shadow:inset 0 0 0 1px rgba(184,143,139,.16);
+  box-shadow:
+    inset 0 0 0 1px rgba(190,151,143,.18),
+    inset 0 0 25px rgba(210,177,166,.045);
 }
 
 .ivory-section{
@@ -204,10 +249,10 @@ main{
   padding:52px 21px;
 }
 
-/* CONTENT ABOVE DOTS */
+/* CONTENT ABOVE BACKGROUND */
 
-.ivory-section > *,
-.paper-section > *:not(.paper-texture):not(.dot-field){
+.ivory-section > *:not(.dot-field):not(.water-wave),
+.paper-section > *:not(.paper-texture):not(.dot-field):not(.water-wave){
   position:relative;
   z-index:4;
 }
@@ -223,16 +268,29 @@ main{
   z-index:2;
 }
 
-/* SOFT PINK PAPER WITH WATER-WAVE EDGES */
+/* PINK PAPER */
 
 .paper-section{
   position:relative;
   padding:85px 22px 92px;
   margin:0;
   background:
-    radial-gradient(ellipse at 15% 20%,rgba(255,249,248,.75),transparent 48%),
-    radial-gradient(ellipse at 85% 80%,rgba(226,174,188,.28),transparent 50%),
-    linear-gradient(135deg,#f8e9eb 0%,#f2dfe3 48%,#f9eeeb 100%);
+    radial-gradient(
+      ellipse at 12% 12%,
+      rgba(255,255,255,.72),
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 88% 85%,
+      rgba(225,173,188,.28),
+      transparent 48%
+    ),
+    linear-gradient(
+      135deg,
+      #faecee 0%,
+      #f3e0e4 48%,
+      #f9eeee 100%
+    );
 }
 
 /* PAPER TEXTURE */
@@ -254,36 +312,11 @@ main{
   pointer-events:none;
 }
 
-/* TOP WATER WAVE EDGE */
+/* REMOVE OLD TORN EDGES */
 
-.paper-section:before{
-  content:"";
-  position:absolute;
-  z-index:2;
-  top:-1px;
-  left:-1%;
-  width:102%;
-  height:27px;
-  pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 35' preserveAspectRatio='none'%3E%3Cpath fill='%23fffdf8' d='M0 0H1200V12 C1140 25 1100 4 1040 13 S930 27 870 13 S760 3 700 14 S590 28 530 13 S420 3 360 14 S250 27 190 13 S80 4 0 15Z'/%3E%3C/svg%3E");
-  background-size:100% 100%;
-  background-repeat:no-repeat;
-}
-
-/* BOTTOM WATER WAVE EDGE */
-
+.paper-section:before,
 .paper-section:after{
-  content:"";
-  position:absolute;
-  z-index:2;
-  bottom:-1px;
-  left:-1%;
-  width:102%;
-  height:27px;
-  pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 35' preserveAspectRatio='none'%3E%3Cpath fill='%23fffdf8' d='M0 35H1200V23 C1140 10 1100 31 1040 22 S930 8 870 22 S760 32 700 21 S590 7 530 22 S420 32 360 21 S250 8 190 22 S80 31 0 20Z'/%3E%3C/svg%3E");
-  background-size:100% 100%;
-  background-repeat:no-repeat;
+  content:none;
 }
 
 /* DATE SECTION */
@@ -306,10 +339,10 @@ main{
 
 .eyebrow{
   font-family:"Cormorant Garamond",serif;
-  font-size:.82rem;
-  letter-spacing:.22em;
+  font-size:.85rem;
+  letter-spacing:.27em;
   text-transform:uppercase;
-  color:#b18b83;
+  color:#aa8279;
   margin-bottom:14px;
 }
 
@@ -317,9 +350,11 @@ main{
 .section-title{
   font-family:"Great Vibes",cursive;
   font-weight:400;
-  color:#b9848d;
+  color:#b47b87;
   font-size:clamp(2.1rem,7vw,3.4rem);
   margin:0 0 16px;
+  text-shadow:0 2px 12px rgba(190,135,145,.12);
+  letter-spacing:.015em;
 }
 
 .welcome p{
@@ -331,7 +366,8 @@ main{
   letter-spacing:.01em;
   max-width:610px;
   margin:0 auto;
-  color:#806568;
+  color:#796064;
+  text-shadow:0 1px 1px rgba(255,255,255,.5);
 }
 
 .welcome p strong{
@@ -397,10 +433,12 @@ main{
   position:relative;
   width:100%;
   height:108px;
-  border:1px solid #e4d5c8;
-  border-radius:11px;
-  background:linear-gradient(145deg,#fffefa,#f7f0e8);
-  box-shadow:0 6px 17px #8c6c5a10;
+  border:1px solid rgba(190,151,143,.42);
+  border-radius:13px;
+  background:linear-gradient(145deg,#fffefa,#f8eff0);
+  box-shadow:
+    0 7px 20px rgba(120,80,80,.07),
+    inset 0 0 12px rgba(255,255,255,.8);
   overflow:hidden;
   transition:box-shadow .5s ease;
 }
@@ -411,11 +449,12 @@ main{
   display:flex;
   align-items:center;
   justify-content:center;
-  color:#a77a76;
+  color:#a87880;
   font-family:"Playfair Display",serif;
   font-size:clamp(1.15rem,4.6vw,1.6rem);
   font-weight:400;
   z-index:1;
+  text-shadow:0 1px 5px rgba(255,255,255,.8);
 }
 
 .scratch-card canvas{
@@ -442,7 +481,7 @@ main{
   100%{box-shadow:0 6px 17px rgba(140,108,90,.06)}
 }
 
-/* TINY PINK GLITTER */
+/* TINY PINK GLITTER FOR SCRATCH */
 
 .scratch-glitter{
   position:fixed;
@@ -495,7 +534,8 @@ main{
   font-family:"Playfair Display",serif;
   font-weight:400;
   font-size:clamp(1.45rem,6.5vw,2.7rem);
-  color:#a9797c;
+  color:#a97580;
+  text-shadow:0 2px 10px rgba(190,135,145,.12);
 }
 
 .time-unit span{
@@ -503,9 +543,9 @@ main{
   white-space:nowrap;
   font-family:"Cormorant Garamond",serif;
   font-size:clamp(.62rem,2.4vw,.9rem);
-  letter-spacing:.09em;
+  letter-spacing:.13em;
   text-transform:uppercase;
-  color:#987d78;
+  color:#947b77;
 }
 
 .count-note{
@@ -555,9 +595,12 @@ main{
   margin:0 auto;
   padding:0;
   background:rgba(255,249,251,.65);
-  border:1.5px solid rgba(218,171,192,.8);
-  border-radius:15px;
-  box-shadow:0 7px 20px rgba(110,70,85,.12);
+  border:1px solid rgba(190,151,143,.7);
+  border-radius:17px;
+  box-shadow:
+    0 10px 30px rgba(100,65,75,.12),
+    0 0 0 4px rgba(255,255,255,.58),
+    inset 0 0 12px rgba(255,255,255,.4);
   overflow:hidden;
 }
 
@@ -580,21 +623,24 @@ main{
   z-index:4;
   display:inline-block;
   margin:0 auto;
-  padding:8px 21px;
-  border:1px solid #c5a58f;
+  padding:10px 25px;
+  border:1px solid #c6a58d;
   border-radius:30px;
-  background:rgba(255,249,245,.96);
-  color:#80645e;
+  background:linear-gradient(135deg,#fffdf9,#f8e9e9);
+  color:#80615e;
   font-family:"Cormorant Garamond",serif;
   font-size:14px;
   font-weight:600;
-  letter-spacing:.35px;
+  letter-spacing:.07em;
   text-decoration:none;
-  box-shadow:0 3px 12px rgba(60,40,30,.10);
+  box-shadow:
+    0 5px 15px rgba(110,75,65,.10),
+    inset 0 1px 0 white;
   white-space:nowrap;
+  transition:all .3s ease;
 }
 
-.map-button:active{transform:scale(.97)}
+.map-button:active{transform:scale(.96)}
 
 /* CELEBRATION */
 
@@ -611,7 +657,9 @@ main{
     radial-gradient(ellipse at 0% 0%,rgba(242,222,223,.55),transparent 40%),
     radial-gradient(ellipse at 100% 100%,rgba(247,230,225,.5),transparent 40%),
     var(--ivory);
-  box-shadow:inset 0 0 0 1px rgba(184,143,139,.16);
+  box-shadow:
+    inset 0 0 0 1px rgba(190,151,143,.18),
+    inset 0 0 25px rgba(210,177,166,.045);
 }
 
 .celebration:before{
@@ -685,7 +733,7 @@ main{
   flex:1;
   max-width:210px;
   min-width:30px;
-  border-top:2px dotted #d8b7b7;
+  border-top:2px dotted #d8aeb8;
   position:relative;
 }
 
@@ -694,9 +742,10 @@ main{
   left:0;
   top:-16px;
   font-size:23px;
-  color:#d68e9c;
+  color:#c28b99;
   transform:rotate(10deg);
   filter:drop-shadow(0 2px 2px #fff);
+  text-shadow:0 0 8px rgba(255,255,255,.9);
   opacity:0;
 }
 
@@ -760,7 +809,8 @@ main{
   font-family:"Playfair Display",serif;
   font-size:clamp(1.08rem,3.7vw,1.4rem);
   font-style:italic;
-  color:#b47c86;
+  color:#b47b87;
+  text-shadow:0 1px 8px rgba(190,135,145,.12);
   margin:28px auto 17px;
 }
 
@@ -768,7 +818,7 @@ main{
   font-family:"Cormorant Garamond",serif;
   font-size:1.05rem;
   line-height:1.75;
-  letter-spacing:.035em;
+  letter-spacing:.055em;
   color:#806b65;
 }
 
@@ -781,16 +831,19 @@ main{
   bottom:16px;
   width:43px;
   height:43px;
-  border:1px solid #fff9;
+  border:1px solid rgba(255,255,255,.85);
   border-radius:50%;
-  background:#9e6874;
+  background:linear-gradient(145deg,#c28d98,#986673);
   color:white;
-  box-shadow:0 4px 16px #5a343433;
+  box-shadow:
+    0 5px 18px rgba(100,55,70,.22),
+    inset 0 1px 3px rgba(255,255,255,.35);
   display:none;
   align-items:center;
   justify-content:center;
   font-size:18px;
   cursor:pointer;
+  transition:all .3s ease;
 }
 
 .music-control.visible{display:flex}
@@ -805,7 +858,11 @@ main{
     padding-right:8vw;
   }
 
-  .family-video{max-width:470px}
+  .family-video{
+    width:100%;
+    height:100%;
+    max-width:none;
+  }
 
   .paper-section{
     padding-top:105px;
@@ -881,6 +938,7 @@ main{
     id="introVideo"
     src="./env.MP4"
     playsinline
+    muted
     preload="auto"></video>
 
   <div class="intro-content">
@@ -900,7 +958,7 @@ main{
 
 <main>
 
-<!-- FAMILY VIDEO -->
+<!-- FULL SCREEN FAMILY VIDEO -->
 
 <section class="family-wrap dot-section" id="top">
 
@@ -1089,8 +1147,6 @@ main{
 
   </div>
 
-  <!-- NIKKAH VIDEO -->
-
   <div class="video-card">
 
     <video
@@ -1152,42 +1208,97 @@ main{
 
 <script>
 
-/* CREATE WHITE FALLING DOTS */
+/* FALLING DOTS + PINK WAVES */
 
-document.querySelectorAll(".dot-section").forEach((section,index)=>{
+document.querySelectorAll(".dot-section").forEach(section=>{
 
   const field=document.createElement("div");
   field.className="dot-field";
   field.setAttribute("aria-hidden","true");
   section.prepend(field);
 
-  const count=section.classList.contains("family-wrap")?24:42;
+  /* Add waves to all sections except full-screen family video */
 
-  for(let i=0;i<count;i++){
+  if(!section.classList.contains("family-wrap")){
 
-    const dot=document.createElement("span");
-    dot.className="ambient-dot";
+    const topWave=document.createElement("div");
+    topWave.className="water-wave top-wave";
+    topWave.setAttribute("aria-hidden","true");
 
-    const size=Math.random()*1.8+1.5;
+    const bottomWave=document.createElement("div");
+    bottomWave.className="water-wave bottom-wave";
+    bottomWave.setAttribute("aria-hidden","true");
 
-    dot.style.width=size+"px";
-    dot.style.height=size+"px";
-    dot.style.left=Math.random()*100+"%";
-    dot.style.opacity=(Math.random()*.4+.45).toFixed(2);
-    dot.style.setProperty("--drift",(Math.random()*55-27)+"px");
-    dot.style.animationDuration=(Math.random()*9+8)+"s";
-    dot.style.animationDelay=(-Math.random()*18)+"s";
-
-    field.appendChild(dot);
+    section.append(topWave,bottomWave);
 
   }
 
+  const count=section.classList.contains("family-wrap")?45:65;
+
+  function createDots(){
+
+    field.innerHTML="";
+
+    const sectionHeight=section.scrollHeight;
+
+    for(let i=0;i<count;i++){
+
+      const dot=document.createElement("span");
+      const isPink=Math.random()<0.42;
+
+      dot.className=isPink
+        ?"ambient-dot pink-dot"
+        :"ambient-dot";
+
+      /* Increased dot size: approximately 3–4 pixels */
+
+      const size=Math.random()*1.5+3;
+
+      dot.style.width=size+"px";
+      dot.style.height=size+"px";
+      dot.style.left=Math.random()*100+"%";
+
+      dot.style.opacity=isPink
+        ?(Math.random()*.20+.55).toFixed(2)
+        :(Math.random()*.20+.60).toFixed(2);
+
+      dot.style.setProperty(
+        "--drift",
+        (Math.random()*70-35)+"px"
+      );
+
+      dot.style.setProperty(
+        "--fall",
+        (sectionHeight+40)+"px"
+      );
+
+      dot.style.animationDuration=(Math.random()*9+8)+"s";
+      dot.style.animationDelay=(-Math.random()*18)+"s";
+
+      field.appendChild(dot);
+
+    }
+
+  }
+
+  createDots();
+
+  window.addEventListener("resize",()=>{
+    field.querySelectorAll(".ambient-dot").forEach(dot=>{
+      dot.style.setProperty(
+        "--fall",
+        (section.scrollHeight+40)+"px"
+      );
+    });
+  });
+
 });
 
-/* OPENING */
+/* OPENING VIDEO AND MUSIC */
 
 const intro=document.getElementById("intro");
 const introVideo=document.getElementById("introVideo");
+const familyVideo=document.getElementById("familyVideo");
 const music=document.getElementById("music");
 const musicControl=document.getElementById("musicControl");
 const musicIcon=document.getElementById("musicIcon");
@@ -1197,6 +1308,7 @@ let started=false;
 function setMusicIcon(){
 
   const playing=!music.paused;
+
   musicIcon.textContent=playing?"Ⅱ":"▶";
 
   musicControl.setAttribute(
@@ -1214,7 +1326,15 @@ async function beginInvitation(){
 
   musicControl.classList.add("visible");
   music.volume=.72;
-  music.play().catch(()=>{});
+
+  try{
+    await music.play();
+  }catch(e){
+    console.log("Music playback needs another tap:",e);
+  }
+
+  introVideo.muted=true;
+  introVideo.volume=0;
 
   intro.classList.add("playing");
 
@@ -1233,7 +1353,9 @@ function finishIntro(){
   intro.classList.remove("playing");
   intro.classList.add("hidden");
 
-  document.getElementById("familyVideo").play().catch(()=>{});
+  familyVideo.muted=true;
+  familyVideo.loop=true;
+  familyVideo.play().catch(()=>{});
 
   setTimeout(()=>{
     document.getElementById("scrollCue").classList.add("show");
@@ -1265,7 +1387,7 @@ document.getElementById("scrollCue").addEventListener("click",()=>{
   });
 });
 
-/* SCRATCH CARDS WITH TINY PINK GLITTER */
+/* SCRATCH CARDS WITH PINK GLITTER */
 
 function createGlitter(x,y){
 
@@ -1529,4 +1651,3 @@ if("IntersectionObserver" in window){
 
 </body>
 </html>
-
