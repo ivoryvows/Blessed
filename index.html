@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,15 +111,14 @@ body:before{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 27'%3E%3Cpath d='M0 14 Q30 0 60 14 T120 14 T180 14 T240 14 V27 H0 Z' fill='%23f1d9df'/%3E%3Cpath d='M0 20 Q30 8 60 20 T120 20 T180 20 T240 20 V27 H0 Z' fill='%23f8e9ec'/%3E%3C/svg%3E");
 }
 
-/* OPENING - ENV.MP4 PAUSED UNTIL TAP */
+/* OPENING VIDEO */
 
 .intro{
   position:fixed;
   inset:0;
   z-index:100;
-  background:#fffdf9;
-  display:grid;
-  place-items:center;
+  background:#000;
+  display:block;
   overflow:hidden;
   cursor:pointer;
   opacity:1;
@@ -138,50 +138,11 @@ body:before{
   width:100%;
   height:100%;
   object-fit:cover;
+  object-position:center;
   display:block;
-  background:#fffdf9;
-}
-
-.intro-content{
-  position:absolute;
-  z-index:2;
-  top:7%;
-  left:0;
-  right:0;
-  text-align:center;
-  padding:10px;
-  pointer-events:none;
-}
-
-.intro-names{
-  font-family:"Great Vibes",cursive;
-  color:#bd8290;
-  font-size:clamp(1.7rem,5.5vw,2.4rem);
-  font-weight:400;
-  line-height:1.15;
-  text-shadow:0 1px 8px rgba(255,255,255,.85);
-}
-
-.tap-hint{
-  position:absolute;
-  z-index:3;
-  bottom:9%;
-  left:0;
-  right:0;
-  text-align:center;
-  color:#fffaf7;
-  font-family:"Cormorant Garamond",serif;
-  font-size:1rem;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  text-shadow:0 2px 9px rgba(65,35,40,.65);
-  animation:tapPulse 2s ease-in-out infinite;
-  pointer-events:none;
-}
-
-@keyframes tapPulse{
-  0%,100%{opacity:.65}
-  50%{opacity:1}
+  background:#000;
+  border:0;
+  outline:0;
 }
 
 /* MAIN */
@@ -250,6 +211,8 @@ main{
   position:relative;
   z-index:4;
 }
+
+/* IVORY FRAME */
 
 .ivory-section:before{
   content:"";
@@ -703,7 +666,7 @@ main{
   left:0;
   top:-16px;
   font-size:23px;
-  color:#e88eaa;
+  color:#e98ca8;
   transform:rotate(10deg);
   filter:drop-shadow(0 2px 2px #fff);
   text-shadow:0 0 8px rgba(255,255,255,.9);
@@ -785,7 +748,7 @@ main{
 
 .music-control{
   position:fixed;
-  z-index:80;
+  z-index:110;
   right:15px;
   bottom:16px;
   width:43px;
@@ -827,7 +790,6 @@ main{
 }
 
 @media(max-width:480px){
-  .intro-names{font-size:1.9rem}
   .scratch-row{gap:8px}
 
   .scratch-card{
@@ -878,7 +840,7 @@ main{
 
 <body>
 
-<!-- OPENING: ENV.MP4 PAUSED UNTIL TAP -->
+<!-- OPENING VIDEO: NO TEXT OR WHITE OVERLAY -->
 
 <div class="intro" id="intro">
 
@@ -889,18 +851,8 @@ main{
     webkit-playsinline
     muted
     preload="auto"
-    poster="">
+    disablepictureinpicture>
   </video>
-
-  <div class="intro-content">
-    <div class="intro-names">
-      Saniya &amp; Ali Jawad
-    </div>
-  </div>
-
-  <div class="tap-hint" id="tapHint">
-    Tap to open with music
-  </div>
 
 </div>
 
@@ -1186,7 +1138,7 @@ document.querySelectorAll(".dot-section").forEach(section=>{
 
 });
 
-/* OPENING VIDEO: PAUSED FIRST, PLAY ON TAP + MUSIC */
+/* OPENING VIDEO: SHOW FIRST FRAME, THEN WAIT FOR TAP */
 
 const intro=document.getElementById("intro");
 const introVideo=document.getElementById("introVideo");
@@ -1194,11 +1146,65 @@ const familyVideo=document.getElementById("familyVideo");
 const music=document.getElementById("music");
 const musicControl=document.getElementById("musicControl");
 const musicIcon=document.getElementById("musicIcon");
-const tapHint=document.getElementById("tapHint");
 
-let musicStarted=false;
 let introFinished=false;
-let invitationStarted=false;
+let introStarted=false;
+let firstFrameReady=false;
+
+/*
+  iPhone/Safari sometimes shows a blank screen for a paused video
+  until it has displayed its first frame.
+  This prepares the first frame silently, then pauses at the start.
+*/
+
+function prepareOpeningFrame(){
+
+  if(firstFrameReady)return;
+  if(introVideo.readyState<2)return;
+
+  firstFrameReady=true;
+  introVideo.muted=true;
+
+  const preparePromise=introVideo.play();
+
+  if(preparePromise && typeof preparePromise.then==="function"){
+
+    preparePromise.then(()=>{
+
+      const pauseAtFirstFrame=()=>{
+
+        introVideo.pause();
+
+        try{
+          introVideo.currentTime=0;
+        }catch(e){}
+
+      };
+
+      if("requestVideoFrameCallback" in introVideo){
+
+        introVideo.requestVideoFrameCallback(()=>{
+          pauseAtFirstFrame();
+        });
+
+      }else{
+
+        setTimeout(pauseAtFirstFrame,100);
+
+      }
+
+    }).catch(error=>{
+
+      console.log("Opening frame preparation:",error);
+
+    });
+
+  }
+
+}
+
+introVideo.addEventListener("loadeddata",prepareOpeningFrame);
+introVideo.addEventListener("canplay",prepareOpeningFrame);
 
 /* Music icon */
 
@@ -1214,57 +1220,57 @@ function setMusicIcon(){
   );
 }
 
-/* Start music after visitor taps */
+/* Start music on the visitor's tap */
 
-async function startMusic(){
+function startMusic(){
 
   musicControl.classList.add("visible");
   music.volume=.72;
 
-  try{
-    await music.play();
-    musicStarted=true;
-  }catch(e){
-    musicStarted=false;
-    console.log("Music playback needs a user tap:",e);
-  }
+  const musicPromise=music.play();
 
-  setMusicIcon();
-}
+  if(musicPromise && typeof musicPromise.catch==="function"){
 
-/* Play opening video only after tap */
-
-async function playOpeningVideo(){
-
-  if(introFinished)return;
-
-  try{
-
-    introVideo.muted=true;
-    await introVideo.play();
-
-    tapHint.style.display="none";
-
-  }catch(e){
-
-    console.log("Opening video playback issue:",e);
-    tapHint.textContent="Tap to play video with music";
-    tapHint.style.display="block";
+    musicPromise.then(()=>{
+      setMusicIcon();
+    }).catch(error=>{
+      console.log("Music playback issue:",error);
+      setMusicIcon();
+    });
 
   }
 }
 
-/* Visitor taps opening screen */
+/* Visitor taps the opening video */
 
 function beginInvitation(){
 
-  if(introFinished || invitationStarted)return;
+  if(introFinished || introStarted)return;
 
-  invitationStarted=true;
+  introStarted=true;
 
-  /* Music and video both begin from this tap */
+  /*
+    Both play commands are called directly from this tap
+    so the browser allows video and music playback.
+  */
+
+  introVideo.muted=true;
+
+  const videoPromise=introVideo.play();
+
   startMusic();
-  playOpeningVideo();
+
+  if(videoPromise && typeof videoPromise.catch==="function"){
+
+    videoPromise.catch(error=>{
+
+      console.log("Opening video playback issue:",error);
+
+      introStarted=false;
+
+    });
+
+  }
 
 }
 
@@ -1293,7 +1299,7 @@ function finishIntro(){
 
 }
 
-/* Opening screen tap */
+/* Tap anywhere on the opening video */
 
 intro.addEventListener("click",beginInvitation);
 
@@ -1306,9 +1312,13 @@ introVideo.addEventListener("ended",finishIntro);
 musicControl.addEventListener("click",()=>{
 
   if(music.paused){
+
     music.play().catch(()=>{});
+
   }else{
+
     music.pause();
+
   }
 
   setMusicIcon();
