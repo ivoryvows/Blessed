@@ -87,7 +87,7 @@ body:before{
   }
 }
 
-/* PINK ZIGZAG WAVES - UNCHANGED */
+/* PINK ZIGZAG WAVES */
 
 .water-wave{
   position:absolute;
@@ -111,13 +111,13 @@ body:before{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 27'%3E%3Cpath d='M0 14 Q30 0 60 14 T120 14 T180 14 T240 14 V27 H0 Z' fill='%23f1d9df'/%3E%3Cpath d='M0 20 Q30 8 60 20 T120 20 T180 20 T240 20 V27 H0 Z' fill='%23f8e9ec'/%3E%3C/svg%3E");
 }
 
-/* OPENING */
+/* OPENING - ONLY ENV.MP4 */
 
 .intro{
   position:fixed;
   inset:0;
   z-index:100;
-  background:#f2dce0;
+  background:#000;
   display:grid;
   place-items:center;
   overflow:hidden;
@@ -140,7 +140,7 @@ body:before{
   height:100%;
   object-fit:cover;
   display:block;
-  background:#f2dce0;
+  background:#000;
 }
 
 .intro-content{
@@ -214,9 +214,9 @@ main{
   display:block;
   position:relative;
   z-index:4;
-  width:100%;
-  height:100%;
-  max-height:none;
+  width:96%;
+  height:96%;
+  max-height:96svh;
   object-fit:cover;
   object-position:center;
   margin:0;
@@ -227,41 +227,6 @@ main{
 
 .family-wrap.reveal .family-video{
   opacity:1;
-}
-
-.scroll-cue{
-  display:none;
-  position:absolute;
-  z-index:7;
-  bottom:22px;
-  left:0;
-  right:0;
-  margin:12px auto 0;
-  color:#fff;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  font-size:.78rem;
-  text-shadow:0 1px 7px rgba(70,40,45,.65);
-  text-align:center;
-  animation:bob 1.7s infinite;
-  cursor:pointer;
-  opacity:0;
-  transition:opacity 1s ease;
-}
-
-.scroll-cue.show{
-  display:block;
-  opacity:1;
-}
-
-.scroll-cue span{
-  display:block;
-  font-size:1.5rem;
-  line-height:1.2;
-}
-
-@keyframes bob{
-  50%{transform:translateY(6px)}
 }
 
 /* SECTION FRAMES */
@@ -851,8 +816,8 @@ main{
   }
 
   .family-video{
-    width:100%;
-    height:100%;
+    width:96%;
+    height:96%;
     max-width:none;
   }
 
@@ -914,7 +879,7 @@ main{
 
 <body>
 
-<!-- OPENING VIDEO: VISIBLE IMMEDIATELY -->
+<!-- OPENING: ENV.MP4 ONLY -->
 
 <div class="intro" id="intro">
 
@@ -924,8 +889,7 @@ main{
     playsinline
     webkit-playsinline
     muted
-    preload="auto"
-    poster="">
+    preload="auto">
   </video>
 
   <div class="intro-content">
@@ -959,12 +923,8 @@ main{
     playsinline
     webkit-playsinline
     muted
-    preload="auto"></video>
-
-  <div class="scroll-cue" id="scrollCue">
-    Scroll to discover
-    <span>⌄</span>
-  </div>
+    preload="auto">
+  </video>
 
 </section>
 
@@ -1251,7 +1211,7 @@ function setMusicIcon(){
   );
 }
 
-/* Visitor taps the visible opening screen */
+/* Visitor taps opening screen */
 
 async function beginInvitation(){
 
@@ -1287,7 +1247,7 @@ function finishIntro(){
 
   intro.classList.add("hidden");
 
-  /* Reveal family video softly */
+  /* Play family video after env.MP4 */
 
   familyVideo.currentTime=0;
 
@@ -1307,28 +1267,9 @@ function finishIntro(){
 
 intro.addEventListener("click",beginInvitation);
 
-/* When opening video ends, reveal family video */
+/* When env.MP4 ends, show family.MOV */
 
 introVideo.addEventListener("ended",finishIntro);
-
-/* FAMILY VIDEO: FREEZE AT LAST SECOND */
-
-familyVideo.addEventListener("timeupdate",()=>{
-
-  if(!familyVideo.duration || !isFinite(familyVideo.duration))return;
-
-  const remaining=familyVideo.duration-familyVideo.currentTime;
-
-  if(remaining<=1){
-
-    familyVideo.pause();
-    familyVideo.currentTime=Math.max(0,familyVideo.duration-1);
-
-    document.getElementById("scrollCue").classList.add("show");
-
-  }
-
-});
 
 /* MUSIC CONTROL */
 
@@ -1345,14 +1286,6 @@ musicControl.addEventListener("click",()=>{
 
 music.addEventListener("play",setMusicIcon);
 music.addEventListener("pause",setMusicIcon);
-
-/* SCROLL */
-
-document.getElementById("scrollCue").addEventListener("click",()=>{
-  document.querySelector(".welcome").scrollIntoView({
-    behavior:"smooth"
-  });
-});
 
 /* SCRATCH CARDS */
 
