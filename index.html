@@ -8,17 +8,15 @@
 
 <title>Saniya Fatema &amp; Ali Jawad | Wedding Invitation</title>
 
-<!-- WHATSAPP LINK PREVIEW -->
+<!-- WHATSAPP LINK PREVIEW: IMAGE AND TITLE ONLY -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Saniya Fatema &amp; Ali Jawad">
-<meta property="og:description" content="Wedding Invitation">
 <meta property="og:url" content="https://ivoryvows.github.io/Blessed/">
 <meta property="og:image" content="https://ivoryvows.github.io/Blessed/logo.JPG">
 <meta property="og:image:secure_url" content="https://ivoryvows.github.io/Blessed/logo.JPG">
-<meta property="og:image:alt" content="Saniya Fatema &amp; Ali Jawad Wedding Invitation">
+<meta property="og:image:alt" content="Saniya Fatema &amp; Ali Jawad">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Saniya Fatema &amp; Ali Jawad">
-<meta name="twitter:description" content="Wedding Invitation">
 <meta name="twitter:image" content="https://ivoryvows.github.io/Blessed/logo.JPG">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -97,32 +95,6 @@ body:before{
   font-family:"Great Vibes",cursive;color:#bd8290;
   font-size:clamp(1.7rem,5.5vw,2.4rem);font-weight:400;
   line-height:1.15;text-shadow:0 1px 8px rgba(255,255,255,.85);
-}
-
-/* WHATSAPP SHARE BUTTON */
-.whatsapp-share{
-  position:fixed;z-index:120;top:15px;left:50%;
-  transform:translateX(-50%);
-  display:flex;justify-content:center;align-items:center;
-  width:max-content;max-width:calc(100% - 30px);
-}
-.whatsapp-share a{
-  display:inline-flex;align-items:center;justify-content:center;gap:9px;
-  padding:11px 22px;border:1px solid rgba(255,255,255,.75);
-  border-radius:30px;
-  background:linear-gradient(135deg,#25D366,#128C50);
-  color:#fff;text-decoration:none;
-  font-family:"Cormorant Garamond",serif;font-size:16px;
-  font-weight:600;letter-spacing:.045em;white-space:nowrap;
-  box-shadow:0 5px 16px rgba(37,211,102,.22);
-  transition:transform .25s ease,box-shadow .25s ease;
-}
-.whatsapp-share a:active{
-  transform:scale(.96);
-  box-shadow:0 3px 10px rgba(37,211,102,.2);
-}
-.whatsapp-share svg{
-  width:19px;height:19px;fill:currentColor;flex:0 0 19px;
 }
 
 /* MAIN */
@@ -373,18 +345,10 @@ main{max-width:100%;overflow:hidden;position:relative}
   border-top:2px dotted #e7a6b7;position:relative;
 }
 
-/* SOLID PINK SVG AIRPLANE - NOT AN EMOJI */
+/* SOLID PINK SVG AIRPLANE */
 .plane{
-  position:absolute;
-  left:0;
-  top:-15px;
-  width:30px;
-  height:30px;
-  display:block;
-  opacity:0;
-  fill:#ff1493;
-  color:#ff1493;
-  pointer-events:none;
+  position:absolute;left:0;top:-15px;width:30px;height:30px;
+  display:block;opacity:0;fill:#ff1493;color:#ff1493;pointer-events:none;
 }
 .najaf.in-view .plane{animation:fly 3.5s ease-in-out forwards}
 @keyframes fly{
@@ -462,8 +426,6 @@ main{max-width:100%;overflow:hidden;position:relative}
   .flight-path{min-width:24px}
   .najaf-message{font-size:1.12rem}
   .najaf .video-card{transform:translateX(-5px)}
-  .whatsapp-share{top:12px}
-  .whatsapp-share a{padding:10px 19px;font-size:15px}
 }
 @media(prefers-reduced-motion:reduce){
   *,*:before,*:after{
@@ -487,22 +449,6 @@ main{max-width:100%;overflow:hidden;position:relative}
   <div class="intro-content">
     <div class="intro-names">Saniya Fatema &amp; Ali Jawad</div>
   </div>
-</div>
-
-<!-- WHATSAPP SHARE BUTTON: VISIBLE ON OPENING SCREEN -->
-<div class="whatsapp-share">
-  <a
-    href="https://wa.me/?text=Saniya%20Fatema%20%26%20Ali%20Jawad%20%7C%20Wedding%20Invitation%0Ahttps%3A%2F%2Fivoryvows.github.io%2FBlessed%2F"
-    target="_blank"
-    rel="noopener"
-    aria-label="Share Saniya Fatema and Ali Jawad wedding invitation on WhatsApp">
-
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M20.52 3.48A11.8 11.8 0 0 0 12.1 0C5.55 0 .22 5.33.22 11.88c0 2.1.55 4.15 1.6 5.96L.13 24l6.32-1.66a11.9 11.9 0 0 0 5.65 1.44h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.23-6.15-3.47-8.42ZM12.1 21.75a9.88 9.88 0 0 1-5.03-1.38l-.36-.21-3.75.98 1-3.65-.23-.38a9.84 9.84 0 1 1 8.37 4.64Zm5.4-7.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35Z"/>
-    </svg>
-
-    Share on WhatsApp
-  </a>
 </div>
 
 <audio id="music" src="./nasheed.mp3" loop preload="auto"></audio>
@@ -601,7 +547,6 @@ main{max-width:100%;overflow:hidden;position:relative}
     <img class="india-flag" src="https://flagcdn.com/w160/in.png" alt="India flag">
 
     <div class="flight-path">
-      <!-- SOLID PINK SVG AIRPLANE -->
       <svg class="plane" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path fill="#ff1493" d="M59.5 5.2c-1.7-1.7-4.4-1.8-6.3-.3L37.5 18.1 15.7 9.4c-1.1-.4-2.3-.2-3.1.7l-2.2 2.2c-.9.9-.8 2.4.2 3.2l16.1 12.3-12.1 10.1-7.8-2.1c-.9-.2-1.8 0-2.5.7l-1.5 1.5c-.9.9-.8 2.4.2 3.2l10.4 7.1 7.1 10.4c.8 1 2.3 1.1 3.2.2l1.5-1.5c.7-.7.9-1.6.7-2.5l-2.1-7.8 10.1-12.1 12.3 16.1c.8 1 2.3 1.1 3.2.2l2.2-2.2c.8-.8 1.1-2 .7-3.1l-8.7-21.8 13.2-15.7c1.5-1.9 1.4-4.6-.3-6.3z"/>
       </svg>
@@ -705,7 +650,6 @@ let introFinished=false;
 let invitationStarted=false;
 let familyReady=false;
 
-/* Start loading family video while opening video plays */
 function preloadFamilyVideo(){
   if(familyReady)return;
   familyReady=true;
@@ -722,7 +666,7 @@ function setMusicIcon(){
   );
 }
 
-/* Tap opening screen to start video and music */
+/* TAP OPENING SCREEN TO START VIDEO AND MUSIC */
 function beginInvitation(){
   if(introFinished || invitationStarted)return;
 
@@ -731,7 +675,6 @@ function beginInvitation(){
   music.volume=.72;
   musicControl.classList.add("visible");
 
-  /* Begin family video loading immediately */
   preloadFamilyVideo();
 
   const videoPromise=introVideo.play();
@@ -748,21 +691,18 @@ function beginInvitation(){
   });
 }
 
-/* Show env.mov only when it actually starts */
 introVideo.addEventListener("playing",()=>{
   intro.classList.add("video-playing");
 });
 
-/* When env.mov ends, play family video */
+/* WHEN OPENING VIDEO ENDS, PLAY FAMILY VIDEO */
 function finishIntro(){
   if(introFinished)return;
   introFinished=true;
 
   intro.classList.add("hidden");
 
-  /* Ensure family video has started loading */
   preloadFamilyVideo();
-
   familyVideo.currentTime=0;
 
   const startFamily=()=>{
@@ -774,8 +714,6 @@ function finishIntro(){
     });
   };
 
-  /* If video is ready, start immediately.
-     Otherwise wait until enough data is available. */
   if(familyVideo.readyState>=3){
     startFamily();
   }else{
