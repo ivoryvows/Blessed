@@ -43,10 +43,7 @@ body:before{
 
 /* FALLING DOTS */
 
-.dot-section{
-  position:relative;
-  isolation:isolate;
-}
+.dot-section{position:relative;isolation:isolate}
 
 .dot-field{
   position:absolute;
@@ -68,23 +65,13 @@ body:before{
   will-change:transform,opacity;
 }
 
-.ambient-dot.pink-dot{
-  background:#edcbd4;
-  border:none;
-  box-shadow:none;
-}
+.ambient-dot.pink-dot{background:#edcbd4}
 
 @keyframes ambientFall{
-  0%{
-    transform:translate3d(0,-15px,0);
-    opacity:0;
-  }
+  0%{transform:translate3d(0,-15px,0);opacity:0}
   12%{opacity:.85}
   78%{opacity:.75}
-  100%{
-    transform:translate3d(var(--drift),var(--fall),0);
-    opacity:0;
-  }
+  100%{transform:translate3d(var(--drift),var(--fall),0);opacity:0}
 }
 
 /* PINK ZIGZAG WAVES */
@@ -111,14 +98,15 @@ body:before{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 27'%3E%3Cpath d='M0 14 Q30 0 60 14 T120 14 T180 14 T240 14 V27 H0 Z' fill='%23f1d9df'/%3E%3Cpath d='M0 20 Q30 8 60 20 T120 20 T180 20 T240 20 V27 H0 Z' fill='%23f8e9ec'/%3E%3C/svg%3E");
 }
 
-/* OPENING VIDEO */
+/* OPENING SCREEN */
 
 .intro{
   position:fixed;
   inset:0;
   z-index:100;
-  background:#000;
-  display:block;
+  background:#fffdf9;
+  display:grid;
+  place-items:center;
   overflow:hidden;
   cursor:pointer;
   opacity:1;
@@ -138,11 +126,50 @@ body:before{
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:center;
   display:block;
-  background:#000;
-  border:0;
-  outline:0;
+  background:#fffdf9;
+}
+
+.intro-content{
+  position:absolute;
+  z-index:2;
+  top:7%;
+  left:0;
+  right:0;
+  text-align:center;
+  padding:10px;
+  pointer-events:none;
+}
+
+.intro-names{
+  font-family:"Great Vibes",cursive;
+  color:#bd8290;
+  font-size:clamp(1.7rem,5.5vw,2.4rem);
+  font-weight:400;
+  line-height:1.15;
+  text-shadow:0 1px 8px rgba(255,255,255,.85);
+}
+
+.tap-hint{
+  position:absolute;
+  z-index:3;
+  bottom:9%;
+  left:0;
+  right:0;
+  text-align:center;
+  color:#fffaf7;
+  font-family:"Cormorant Garamond",serif;
+  font-size:1rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  text-shadow:0 2px 9px rgba(65,35,40,.65);
+  animation:tapPulse 2s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes tapPulse{
+  0%,100%{opacity:.65}
+  50%{opacity:1}
 }
 
 /* MAIN */
@@ -185,14 +212,11 @@ main{
   transition:opacity 2s ease;
 }
 
-.family-wrap.reveal .family-video{
-  opacity:1;
-}
+.family-wrap.reveal .family-video{opacity:1}
 
 /* SECTION FRAMES */
 
-.ivory-section,
-.paper-section{
+.ivory-section,.paper-section{
   text-align:center;
   position:relative;
   isolation:isolate;
@@ -211,8 +235,6 @@ main{
   position:relative;
   z-index:4;
 }
-
-/* IVORY FRAME */
 
 .ivory-section:before{
   content:"";
@@ -252,10 +274,7 @@ main{
   pointer-events:none;
 }
 
-.paper-section:before,
-.paper-section:after{
-  content:none;
-}
+.paper-section:before,.paper-section:after{content:none}
 
 /* DATE */
 
@@ -270,10 +289,7 @@ main{
 
 /* WELCOME */
 
-.welcome{
-  padding-top:47px;
-  padding-bottom:60px;
-}
+.welcome{padding-top:47px;padding-bottom:60px}
 
 .eyebrow{
   font-family:"Cormorant Garamond",serif;
@@ -284,8 +300,7 @@ main{
   margin-bottom:14px;
 }
 
-.welcome h1,
-.section-title{
+.welcome h1,.section-title{
   font-family:"Great Vibes",cursive;
   font-weight:400;
   color:#b47b87;
@@ -308,19 +323,11 @@ main{
   text-shadow:0 1px 1px rgba(255,255,255,.5);
 }
 
-.welcome p strong{
-  font-weight:600;
-  font-style:normal;
-  color:#b47c88;
-}
+.welcome p strong{font-weight:600;font-style:normal;color:#b47c88}
 
 /* BLESSED UNION */
 
-.union{
-  padding-top:82px;
-  padding-bottom:88px;
-}
-
+.union{padding-top:82px;padding-bottom:88px}
 .paper-section .section-title{color:#b77e89}
 
 .arabic{
@@ -403,9 +410,7 @@ main{
   z-index:3;
 }
 
-.scratch-card.revealed-complete{
-  animation:softReveal 1.8s ease-in-out;
-}
+.scratch-card.revealed-complete{animation:softReveal 1.8s ease-in-out}
 
 @keyframes softReveal{
   0%{box-shadow:0 6px 17px rgba(140,108,90,.06)}
@@ -428,8 +433,7 @@ main{
   animation:glitterPop .55s ease-out forwards;
 }
 
-.scratch-glitter:before,
-.scratch-glitter:after{
+.scratch-glitter:before,.scratch-glitter:after{
   content:"✧";
   position:absolute;
   color:#e9b4c3;
@@ -601,10 +605,7 @@ main{
 
 /* NAJAF */
 
-.najaf{
-  padding-top:85px;
-  padding-bottom:88px;
-}
+.najaf{padding-top:85px;padding-bottom:88px}
 
 .najaf-message{
   font-family:"Cormorant Garamond",serif;
@@ -665,17 +666,15 @@ main{
   position:absolute;
   left:0;
   top:-16px;
-  font-size:23px;
-  color:#e98ca8;
+  font-size:25px;
+  color:#ff69a6;
   transform:rotate(10deg);
-  filter:drop-shadow(0 2px 2px #fff);
+  filter:drop-shadow(0 2px 3px rgba(255,105,166,.35));
   text-shadow:0 0 8px rgba(255,255,255,.9);
   opacity:0;
 }
 
-.najaf.in-view .plane{
-  animation:fly 3.5s ease-in-out forwards;
-}
+.najaf.in-view .plane{animation:fly 3.5s ease-in-out forwards}
 
 @keyframes fly{
   0%{left:0;opacity:0}
@@ -748,7 +747,7 @@ main{
 
 .music-control{
   position:fixed;
-  z-index:110;
+  z-index:80;
   right:15px;
   bottom:16px;
   width:43px;
@@ -783,26 +782,17 @@ main{
     max-width:none;
   }
 
-  .paper-section{
-    padding-top:105px;
-    padding-bottom:115px;
-  }
+  .paper-section{padding-top:105px;padding-bottom:115px}
 }
 
 @media(max-width:480px){
+  .intro-names{font-size:1.9rem}
   .scratch-row{gap:8px}
 
-  .scratch-card{
-    height:100px;
-    border-radius:10px;
-  }
-
+  .scratch-card{height:100px;border-radius:10px}
   .countdown{gap:3px}
 
-  .time-unit strong{
-    font-size:clamp(1.4rem,6.7vw,1.9rem);
-  }
-
+  .time-unit strong{font-size:clamp(1.4rem,6.7vw,1.9rem)}
   .time-unit span{
     font-size:clamp(.59rem,2.3vw,.74rem);
     letter-spacing:.045em;
@@ -815,11 +805,7 @@ main{
     padding:4vh 0 23px;
   }
 
-  .video-card{
-    width:90vw;
-    border-radius:15px;
-  }
-
+  .video-card{width:90vw;border-radius:15px}
   .video-card video{border-radius:14px}
   .event-heading{font-size:29px}
   .flight{gap:7px}
@@ -840,19 +826,28 @@ main{
 
 <body>
 
-<!-- OPENING VIDEO: NO TEXT OR WHITE OVERLAY -->
+<!-- OPENING: ENV.MOV VISIBLE, PAUSED UNTIL TAP -->
 
 <div class="intro" id="intro">
 
   <video class="intro-video"
     id="introVideo"
-    src="./env.MP4"
+    src="./env.mov"
     playsinline
     webkit-playsinline
     muted
-    preload="auto"
-    disablepictureinpicture>
+    preload="auto">
   </video>
+
+  <div class="intro-content">
+    <div class="intro-names">
+      Saniya Fatema &amp; Ali Jawad
+    </div>
+  </div>
+
+  <div class="tap-hint" id="tapHint">
+    Tap to open with music
+  </div>
 
 </div>
 
@@ -1138,7 +1133,7 @@ document.querySelectorAll(".dot-section").forEach(section=>{
 
 });
 
-/* OPENING VIDEO: SHOW FIRST FRAME, THEN WAIT FOR TAP */
+/* OPENING VIDEO: PAUSED ON LOAD, PLAY ON TAP + MUSIC */
 
 const intro=document.getElementById("intro");
 const introVideo=document.getElementById("introVideo");
@@ -1146,65 +1141,10 @@ const familyVideo=document.getElementById("familyVideo");
 const music=document.getElementById("music");
 const musicControl=document.getElementById("musicControl");
 const musicIcon=document.getElementById("musicIcon");
+const tapHint=document.getElementById("tapHint");
 
 let introFinished=false;
-let introStarted=false;
-let firstFrameReady=false;
-
-/*
-  iPhone/Safari sometimes shows a blank screen for a paused video
-  until it has displayed its first frame.
-  This prepares the first frame silently, then pauses at the start.
-*/
-
-function prepareOpeningFrame(){
-
-  if(firstFrameReady)return;
-  if(introVideo.readyState<2)return;
-
-  firstFrameReady=true;
-  introVideo.muted=true;
-
-  const preparePromise=introVideo.play();
-
-  if(preparePromise && typeof preparePromise.then==="function"){
-
-    preparePromise.then(()=>{
-
-      const pauseAtFirstFrame=()=>{
-
-        introVideo.pause();
-
-        try{
-          introVideo.currentTime=0;
-        }catch(e){}
-
-      };
-
-      if("requestVideoFrameCallback" in introVideo){
-
-        introVideo.requestVideoFrameCallback(()=>{
-          pauseAtFirstFrame();
-        });
-
-      }else{
-
-        setTimeout(pauseAtFirstFrame,100);
-
-      }
-
-    }).catch(error=>{
-
-      console.log("Opening frame preparation:",error);
-
-    });
-
-  }
-
-}
-
-introVideo.addEventListener("loadeddata",prepareOpeningFrame);
-introVideo.addEventListener("canplay",prepareOpeningFrame);
+let invitationStarted=false;
 
 /* Music icon */
 
@@ -1220,61 +1160,56 @@ function setMusicIcon(){
   );
 }
 
-/* Start music on the visitor's tap */
-
-function startMusic(){
-
-  musicControl.classList.add("visible");
-  music.volume=.72;
-
-  const musicPromise=music.play();
-
-  if(musicPromise && typeof musicPromise.catch==="function"){
-
-    musicPromise.then(()=>{
-      setMusicIcon();
-    }).catch(error=>{
-      console.log("Music playback issue:",error);
-      setMusicIcon();
-    });
-
-  }
-}
-
-/* Visitor taps the opening video */
+/* Visitor taps opening screen */
 
 function beginInvitation(){
 
-  if(introFinished || introStarted)return;
+  if(introFinished || invitationStarted)return;
 
-  introStarted=true;
-
-  /*
-    Both play commands are called directly from this tap
-    so the browser allows video and music playback.
-  */
+  invitationStarted=true;
 
   introVideo.muted=true;
+  music.volume=.72;
+
+  musicControl.classList.add("visible");
+
+  /*
+    IMPORTANT:
+    Start both videos/audio directly inside the tap event.
+    This helps iPhone Safari recognize the visitor gesture.
+  */
 
   const videoPromise=introVideo.play();
+  const musicPromise=music.play();
 
-  startMusic();
+  videoPromise.then(()=>{
 
-  if(videoPromise && typeof videoPromise.catch==="function"){
+    tapHint.style.display="none";
 
-    videoPromise.catch(error=>{
+  }).catch(error=>{
 
-      console.log("Opening video playback issue:",error);
+    console.log("Opening video playback issue:",error);
 
-      introStarted=false;
+    tapHint.textContent="Tap to play video with music";
+    tapHint.style.display="block";
+    invitationStarted=false;
 
-    });
+  });
 
-  }
+  musicPromise.then(()=>{
+
+    setMusicIcon();
+
+  }).catch(error=>{
+
+    console.log("Music playback issue:",error);
+    setMusicIcon();
+
+  });
 
 }
 
-/* When env.MP4 ends, play family.MOV */
+/* When env.mov ends, play family.MOV */
 
 function finishIntro(){
 
@@ -1299,7 +1234,7 @@ function finishIntro(){
 
 }
 
-/* Tap anywhere on the opening video */
+/* Opening screen tap */
 
 intro.addEventListener("click",beginInvitation);
 
@@ -1313,7 +1248,9 @@ musicControl.addEventListener("click",()=>{
 
   if(music.paused){
 
-    music.play().catch(()=>{});
+    music.play().catch(error=>{
+      console.log("Music playback issue:",error);
+    });
 
   }else{
 
