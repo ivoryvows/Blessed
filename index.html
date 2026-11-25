@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#fffdf9">
-<title>Saniya Fatema & Ali Jawad | Wedding Invitation</title>
+<title>Saniya Fatema &amp; Ali Jawad | Wedding Invitation</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,7 +62,7 @@ body:before{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 27'%3E%3Cpath d='M0 14 Q30 0 60 14 T120 14 T180 14 T240 14 V27 H0 Z' fill='%23f1d9df'/%3E%3Cpath d='M0 20 Q30 8 60 20 T120 20 T180 20 T240 20 V27 H0 Z' fill='%23f8e9ec'/%3E%3C/svg%3E");
 }
 
-/* OPENING SCREEN: IMG FIRST, VIDEO AFTER TAP */
+/* OPENING SCREEN */
 .intro{
   position:fixed;inset:0;z-index:100;background:#fffdf9;
   display:grid;place-items:center;overflow:hidden;cursor:pointer;
@@ -91,15 +91,6 @@ body:before{
   font-size:clamp(1.7rem,5.5vw,2.4rem);font-weight:400;
   line-height:1.15;text-shadow:0 1px 8px rgba(255,255,255,.85);
 }
-.tap-hint{
-  position:absolute;z-index:3;bottom:9%;left:0;right:0;
-  text-align:center;color:#fffaf7;
-  font-family:"Cormorant Garamond",serif;font-size:1rem;
-  letter-spacing:.22em;text-transform:uppercase;
-  text-shadow:0 2px 9px rgba(65,35,40,.65);
-  animation:tapPulse 2s ease-in-out infinite;pointer-events:none;
-}
-@keyframes tapPulse{0%,100%{opacity:.65}50%{opacity:1}}
 
 /* MAIN */
 main{max-width:100%;overflow:hidden;position:relative}
@@ -349,11 +340,16 @@ main{max-width:100%;overflow:hidden;position:relative}
   border-top:2px dotted #e7a6b7;position:relative;
 }
 .plane{
-  position:absolute;left:0;top:-16px;font-size:25px;
-  color:#ff69a6;
+  position:absolute;
+  left:0;
+  top:-16px;
+  font-size:25px;
+  color:#ff1493;
+  -webkit-text-fill-color:#ff1493;
+  filter:none;
+  text-shadow:none;
+  opacity:0;
   transform:rotate(10deg);
-  filter:drop-shadow(0 2px 3px rgba(255,105,166,.45));
-  text-shadow:0 0 8px rgba(255,255,255,.9);opacity:0;
 }
 .najaf.in-view .plane{animation:fly 3.5s ease-in-out forwards}
 @keyframes fly{
@@ -464,7 +460,6 @@ main{max-width:100%;overflow:hidden;position:relative}
     <div class="intro-names">Saniya Fatema &amp; Ali Jawad</div>
   </div>
 
-  <div class="tap-hint" id="tapHint">Tap to open with music</div>
 </div>
 
 <audio id="music" src="./nasheed.mp3" loop preload="auto"></audio>
@@ -669,13 +664,11 @@ document.querySelectorAll(".dot-section").forEach(section=>{
 
 /* OPENING: IMG.JPG FIRST, THEN ENV.MOV + MUSIC */
 const intro=document.getElementById("intro");
-const introPoster=document.getElementById("introPoster");
 const introVideo=document.getElementById("introVideo");
 const familyVideo=document.getElementById("familyVideo");
 const music=document.getElementById("music");
 const musicControl=document.getElementById("musicControl");
 const musicIcon=document.getElementById("musicIcon");
-const tapHint=document.getElementById("tapHint");
 
 let introFinished=false;
 let invitationStarted=false;
@@ -689,7 +682,7 @@ function setMusicIcon(){
   );
 }
 
-/* On tap, start video and music directly from the same tap event */
+/* Tap anywhere on the opening image to start video and music */
 function beginInvitation(){
   if(introFinished || invitationStarted)return;
 
@@ -697,18 +690,13 @@ function beginInvitation(){
   introVideo.muted=true;
   music.volume=.72;
   musicControl.classList.add("visible");
-  tapHint.textContent="Loading your invitation...";
 
-  /* Both play calls happen immediately inside the tap gesture */
+  /* Both start directly from the same tap */
   const videoPromise=introVideo.play();
   const musicPromise=music.play();
 
-  videoPromise.then(()=>{
-    /* Keep img.jpg visible until the actual video starts */
-  }).catch(error=>{
+  videoPromise.catch(error=>{
     console.log("Opening video playback issue:",error);
-    tapHint.textContent="Tap to play video with music";
-    tapHint.style.display="block";
     invitationStarted=false;
   });
 
@@ -720,10 +708,9 @@ function beginInvitation(){
   });
 }
 
-/* Reveal env.mov only when playback really begins */
+/* Show env.mov only when playback actually begins */
 introVideo.addEventListener("playing",()=>{
   intro.classList.add("video-playing");
-  tapHint.style.display="none";
 });
 
 /* When env.mov ends, move to family video */
