@@ -31,8 +31,6 @@ body{
   overflow-x:hidden;
 }
 
-/* GRAIN */
-
 body:before{
   content:"";
   position:fixed;
@@ -43,7 +41,7 @@ body:before{
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
 }
 
-/* SIMPLE FALLING DOTS */
+/* FALLING DOTS */
 
 .dot-section{
   position:relative;
@@ -89,7 +87,7 @@ body:before{
   }
 }
 
-/* PINK ZIGZAG WATER WAVES */
+/* PINK ZIGZAG WAVES - UNCHANGED */
 
 .water-wave{
   position:absolute;
@@ -123,8 +121,10 @@ body:before{
   display:grid;
   place-items:center;
   overflow:hidden;
-  transition:opacity 1s ease,visibility 1s ease;
   cursor:pointer;
+  opacity:1;
+  visibility:visible;
+  transition:opacity 1.2s ease,visibility 1.2s ease;
 }
 
 .intro.hidden{
@@ -139,10 +139,9 @@ body:before{
   width:100%;
   height:100%;
   object-fit:cover;
-  display:none;
+  display:block;
+  background:#f2dce0;
 }
-
-.intro.playing .intro-video{display:block}
 
 .intro-content{
   position:absolute;
@@ -164,6 +163,28 @@ body:before{
   text-shadow:0 1px 8px rgba(255,255,255,.85);
 }
 
+.tap-hint{
+  position:absolute;
+  z-index:3;
+  bottom:9%;
+  left:0;
+  right:0;
+  text-align:center;
+  color:#fffaf7;
+  font-family:"Cormorant Garamond",serif;
+  font-size:1rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  text-shadow:0 2px 9px rgba(65,35,40,.65);
+  animation:tapPulse 2s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes tapPulse{
+  0%,100%{opacity:.65}
+  50%{opacity:1}
+}
+
 /* MAIN */
 
 main{
@@ -172,7 +193,7 @@ main{
   position:relative;
 }
 
-/* FULL SCREEN FAMILY VIDEO */
+/* FAMILY VIDEO */
 
 .family-wrap{
   position:relative;
@@ -200,6 +221,12 @@ main{
   object-position:center;
   margin:0;
   background:#f8f1e9;
+  opacity:0;
+  transition:opacity 2s ease;
+}
+
+.family-wrap.reveal .family-video{
+  opacity:1;
 }
 
 .scroll-cue{
@@ -218,9 +245,14 @@ main{
   text-align:center;
   animation:bob 1.7s infinite;
   cursor:pointer;
+  opacity:0;
+  transition:opacity 1s ease;
 }
 
-.scroll-cue.show{display:block}
+.scroll-cue.show{
+  display:block;
+  opacity:1;
+}
 
 .scroll-cue span{
   display:block;
@@ -249,15 +281,11 @@ main{
   padding:52px 21px;
 }
 
-/* CONTENT ABOVE BACKGROUND */
-
 .ivory-section > *:not(.dot-field):not(.water-wave),
 .paper-section > *:not(.paper-texture):not(.dot-field):not(.water-wave){
   position:relative;
   z-index:4;
 }
-
-/* INNER IVORY FRAME */
 
 .ivory-section:before{
   content:"";
@@ -275,25 +303,10 @@ main{
   padding:85px 22px 92px;
   margin:0;
   background:
-    radial-gradient(
-      ellipse at 12% 12%,
-      rgba(255,255,255,.72),
-      transparent 45%
-    ),
-    radial-gradient(
-      ellipse at 88% 85%,
-      rgba(225,173,188,.28),
-      transparent 48%
-    ),
-    linear-gradient(
-      135deg,
-      #faecee 0%,
-      #f3e0e4 48%,
-      #f9eeee 100%
-    );
+    radial-gradient(ellipse at 12% 12%,rgba(255,255,255,.72),transparent 45%),
+    radial-gradient(ellipse at 88% 85%,rgba(225,173,188,.28),transparent 48%),
+    linear-gradient(135deg,#faecee 0%,#f3e0e4 48%,#f9eeee 100%);
 }
-
-/* PAPER TEXTURE */
 
 .paper-section .paper-texture{
   position:absolute;
@@ -312,14 +325,12 @@ main{
   pointer-events:none;
 }
 
-/* REMOVE OLD TORN EDGES */
-
 .paper-section:before,
 .paper-section:after{
   content:none;
 }
 
-/* DATE SECTION */
+/* DATE */
 
 .date-section{
   padding-top:78px;
@@ -436,9 +447,7 @@ main{
   border:1px solid rgba(190,151,143,.42);
   border-radius:13px;
   background:linear-gradient(145deg,#fffefa,#f8eff0);
-  box-shadow:
-    0 7px 20px rgba(120,80,80,.07),
-    inset 0 0 12px rgba(255,255,255,.8);
+  box-shadow:0 7px 20px rgba(120,80,80,.07),inset 0 0 12px rgba(255,255,255,.8);
   overflow:hidden;
   transition:box-shadow .5s ease;
 }
@@ -473,15 +482,11 @@ main{
 
 @keyframes softReveal{
   0%{box-shadow:0 6px 17px rgba(140,108,90,.06)}
-  50%{
-    box-shadow:
-      0 0 12px rgba(150,140,140,.17),
-      0 5px 18px rgba(140,108,90,.09);
-  }
+  50%{box-shadow:0 0 12px rgba(150,140,140,.17),0 5px 18px rgba(140,108,90,.09)}
   100%{box-shadow:0 6px 17px rgba(140,108,90,.06)}
 }
 
-/* TINY PINK GLITTER FOR SCRATCH */
+/* SCRATCH GLITTER */
 
 .scratch-glitter{
   position:fixed;
@@ -597,10 +602,7 @@ main{
   background:rgba(255,249,251,.65);
   border:1px solid rgba(190,151,143,.7);
   border-radius:17px;
-  box-shadow:
-    0 10px 30px rgba(100,65,75,.12),
-    0 0 0 4px rgba(255,255,255,.58),
-    inset 0 0 12px rgba(255,255,255,.4);
+  box-shadow:0 10px 30px rgba(100,65,75,.12),0 0 0 4px rgba(255,255,255,.58),inset 0 0 12px rgba(255,255,255,.4);
   overflow:hidden;
 }
 
@@ -633,9 +635,7 @@ main{
   font-weight:600;
   letter-spacing:.07em;
   text-decoration:none;
-  box-shadow:
-    0 5px 15px rgba(110,75,65,.10),
-    inset 0 1px 0 white;
+  box-shadow:0 5px 15px rgba(110,75,65,.10),inset 0 1px 0 white;
   white-space:nowrap;
   transition:all .3s ease;
 }
@@ -657,9 +657,7 @@ main{
     radial-gradient(ellipse at 0% 0%,rgba(242,222,223,.55),transparent 40%),
     radial-gradient(ellipse at 100% 100%,rgba(247,230,225,.5),transparent 40%),
     var(--ivory);
-  box-shadow:
-    inset 0 0 0 1px rgba(190,151,143,.18),
-    inset 0 0 25px rgba(210,177,166,.045);
+  box-shadow:inset 0 0 0 1px rgba(190,151,143,.18),inset 0 0 25px rgba(210,177,166,.045);
 }
 
 .celebration:before{
@@ -674,7 +672,7 @@ main{
 .celebration .event-heading{margin-bottom:3px}
 .celebration .video-card{aspect-ratio:9 / 16}
 
-/* NAJAF JOURNEY */
+/* NAJAF */
 
 .najaf{
   padding-top:85px;
@@ -712,8 +710,7 @@ main{
   margin:0 auto 29px;
 }
 
-.india-flag,
-.roza{
+.india-flag,.roza{
   width:clamp(54px,14vw,78px);
   height:clamp(54px,14vw,78px);
   flex:0 0 clamp(54px,14vw,78px);
@@ -760,9 +757,7 @@ main{
   100%{left:calc(100% - 22px);opacity:1}
 }
 
-.najaf .video-card{
-  transform:translateX(-7px);
-}
+.najaf .video-card{transform:translateX(-7px)}
 
 .address{
   font-family:"Cormorant Garamond",serif;
@@ -835,9 +830,7 @@ main{
   border-radius:50%;
   background:linear-gradient(145deg,#c28d98,#986673);
   color:white;
-  box-shadow:
-    0 5px 18px rgba(100,55,70,.22),
-    inset 0 1px 3px rgba(255,255,255,.35);
+  box-shadow:0 5px 18px rgba(100,55,70,.22),inset 0 1px 3px rgba(255,255,255,.35);
   display:none;
   align-items:center;
   justify-content:center;
@@ -852,7 +845,6 @@ main{
 /* RESPONSIVE */
 
 @media(min-width:700px){
-
   .ivory-section,.paper-section{
     padding-left:8vw;
     padding-right:8vw;
@@ -871,9 +863,7 @@ main{
 }
 
 @media(max-width:480px){
-
   .intro-names{font-size:1.9rem}
-
   .scratch-row{gap:8px}
 
   .scratch-card{
@@ -905,17 +895,11 @@ main{
   }
 
   .video-card video{border-radius:14px}
-
   .event-heading{font-size:29px}
-
   .flight{gap:7px}
   .flight-path{min-width:24px}
-
   .najaf-message{font-size:1.12rem}
-
-  .najaf .video-card{
-    transform:translateX(-5px);
-  }
+  .najaf .video-card{transform:translateX(-5px)}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -930,7 +914,7 @@ main{
 
 <body>
 
-<!-- OPENING VIDEO -->
+<!-- OPENING VIDEO: VISIBLE IMMEDIATELY -->
 
 <div class="intro" id="intro">
 
@@ -938,13 +922,20 @@ main{
     id="introVideo"
     src="./env.MP4"
     playsinline
+    webkit-playsinline
     muted
-    preload="auto"></video>
+    preload="auto"
+    poster="">
+  </video>
 
   <div class="intro-content">
     <div class="intro-names">
       Saniya &amp; Ali Jawad
     </div>
+  </div>
+
+  <div class="tap-hint" id="tapHint">
+    Tap to open
   </div>
 
 </div>
@@ -958,7 +949,7 @@ main{
 
 <main>
 
-<!-- FULL SCREEN FAMILY VIDEO -->
+<!-- FAMILY VIDEO -->
 
 <section class="family-wrap dot-section" id="top">
 
@@ -966,10 +957,9 @@ main{
     id="familyVideo"
     src="./family.MOV"
     playsinline
+    webkit-playsinline
     muted
-    autoplay
-    loop
-    preload="metadata"></video>
+    preload="auto"></video>
 
   <div class="scroll-cue" id="scrollCue">
     Scroll to discover
@@ -981,118 +971,90 @@ main{
 <!-- WELCOME -->
 
 <section class="ivory-section welcome dot-section">
-
   <div class="eyebrow">With the blessings of Allah</div>
-
   <h1>With joyful hearts</h1>
-
   <p>
     We are honored to welcome you to the Wedding ceremony of
     <strong>Saniya Fatema &amp; Ali Jawad</strong>.
     As they begin their journey together in faith and love,
     we thank you for being part of this blessed occasion.
   </p>
-
 </section>
 
 <!-- BLESSED UNION -->
 
 <section class="paper-section union dot-section">
-
   <div class="paper-texture"></div>
-
   <h2 class="section-title">A Blessed Union</h2>
-
   <div class="arabic">
     وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِنْ أَنفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَوَدَّةً وَرَحْمَةً
   </div>
-
   <p class="translation">
     "And of His signs is that He created for you from yourselves mates
     that you may find tranquility in them, and He placed between you
     affection and mercy."
   </p>
-
 </section>
 
 <!-- MILAD DATE -->
 
 <section class="ivory-section date-section dot-section">
-
   <div class="eyebrow">Save the date</div>
-
   <h2 class="section-title">Milad Date</h2>
-
   <p class="date-intro">
     A blessed day, written by the will of Allah.
     Gently uncover each keepsake to reveal the date of our celebration.
   </p>
 
   <div class="scratch-row">
-
     <div class="scratch-card">
       <div class="revealed">28</div>
       <canvas aria-label="Scratch to reveal"></canvas>
     </div>
-
     <div class="scratch-card">
       <div class="revealed">Dec</div>
       <canvas aria-label="Scratch to reveal"></canvas>
     </div>
-
     <div class="scratch-card">
       <div class="revealed">2026</div>
       <canvas aria-label="Scratch to reveal"></canvas>
     </div>
-
   </div>
-
 </section>
 
 <!-- COUNTDOWN -->
 
 <section class="paper-section countdown-section dot-section">
-
   <div class="paper-texture"></div>
-
   <p class="count-note">Every moment brings us closer</p>
-
   <h2 class="section-title">The Celebration Begins In</h2>
 
   <div class="countdown" aria-live="polite">
-
     <div class="time-unit">
       <strong id="days">00</strong>
       <span>Days</span>
     </div>
-
     <div class="time-unit">
       <strong id="hours">00</strong>
       <span>Hours</span>
     </div>
-
     <div class="time-unit">
       <strong id="minutes">00</strong>
       <span>Minutes</span>
     </div>
-
     <div class="time-unit">
       <strong id="seconds">00</strong>
       <span>Seconds</span>
     </div>
-
   </div>
-
 </section>
 
 <!-- GUJARAT CELEBRATION VIDEO -->
 
 <section class="ivory-section celebration dot-section">
-
   <h2 class="event-heading">Join Us for the Celebrations</h2>
 
   <div class="video-card">
-
     <video
       class="scroll-video"
       id="zehraVideo"
@@ -1102,7 +1064,6 @@ main{
       muted
       preload="metadata">
     </video>
-
   </div>
 
   <a class="map-button"
@@ -1111,13 +1072,11 @@ main{
     rel="noopener">
     View on Map ↗
   </a>
-
 </section>
 
 <!-- NAJAF JOURNEY -->
 
 <section class="paper-section najaf dot-section" id="najafSection">
-
   <div class="paper-texture"></div>
 
   <p class="najaf-message">
@@ -1132,7 +1091,6 @@ main{
   </p>
 
   <div class="flight">
-
     <img class="india-flag"
       src="https://flagcdn.com/w160/in.png"
       alt="India flag">
@@ -1144,11 +1102,9 @@ main{
     <img class="roza"
       src="./roza.PNG"
       alt="Roza of Imam Ali">
-
   </div>
 
   <div class="video-card">
-
     <video
       class="scroll-video"
       id="wedVideo"
@@ -1158,7 +1114,6 @@ main{
       muted
       preload="metadata">
     </video>
-
   </div>
 
   <a class="map-button"
@@ -1173,13 +1128,11 @@ main{
     <br>
     Najaf, Iraq
   </p>
-
 </section>
 
 <!-- GIFTS -->
 
 <section class="ivory-section gifts dot-section">
-
   <h2 class="section-title">Gifts</h2>
 
   <p class="gift-text">
@@ -1201,14 +1154,13 @@ main{
     <br>
     &amp; Darediya family
   </div>
-
 </section>
 
 </main>
 
 <script>
 
-/* FALLING DOTS + PINK WAVES */
+/* FALLING DOTS + WAVES */
 
 document.querySelectorAll(".dot-section").forEach(section=>{
 
@@ -1216,8 +1168,6 @@ document.querySelectorAll(".dot-section").forEach(section=>{
   field.className="dot-field";
   field.setAttribute("aria-hidden","true");
   section.prepend(field);
-
-  /* Add waves to all sections except full-screen family video */
 
   if(!section.classList.contains("family-wrap")){
 
@@ -1230,7 +1180,6 @@ document.querySelectorAll(".dot-section").forEach(section=>{
     bottomWave.setAttribute("aria-hidden","true");
 
     section.append(topWave,bottomWave);
-
   }
 
   const count=section.classList.contains("family-wrap")?45:65;
@@ -1238,7 +1187,6 @@ document.querySelectorAll(".dot-section").forEach(section=>{
   function createDots(){
 
     field.innerHTML="";
-
     const sectionHeight=section.scrollHeight;
 
     for(let i=0;i<count;i++){
@@ -1246,11 +1194,7 @@ document.querySelectorAll(".dot-section").forEach(section=>{
       const dot=document.createElement("span");
       const isPink=Math.random()<0.42;
 
-      dot.className=isPink
-        ?"ambient-dot pink-dot"
-        :"ambient-dot";
-
-      /* Increased dot size: approximately 3–4 pixels */
+      dot.className=isPink?"ambient-dot pink-dot":"ambient-dot";
 
       const size=Math.random()*1.5+3;
 
@@ -1262,39 +1206,27 @@ document.querySelectorAll(".dot-section").forEach(section=>{
         ?(Math.random()*.20+.55).toFixed(2)
         :(Math.random()*.20+.60).toFixed(2);
 
-      dot.style.setProperty(
-        "--drift",
-        (Math.random()*70-35)+"px"
-      );
-
-      dot.style.setProperty(
-        "--fall",
-        (sectionHeight+40)+"px"
-      );
+      dot.style.setProperty("--drift",(Math.random()*70-35)+"px");
+      dot.style.setProperty("--fall",(sectionHeight+40)+"px");
 
       dot.style.animationDuration=(Math.random()*9+8)+"s";
       dot.style.animationDelay=(-Math.random()*18)+"s";
 
       field.appendChild(dot);
-
     }
-
   }
 
   createDots();
 
   window.addEventListener("resize",()=>{
     field.querySelectorAll(".ambient-dot").forEach(dot=>{
-      dot.style.setProperty(
-        "--fall",
-        (section.scrollHeight+40)+"px"
-      );
+      dot.style.setProperty("--fall",(section.scrollHeight+40)+"px");
     });
   });
 
 });
 
-/* OPENING VIDEO AND MUSIC */
+/* OPENING VIDEO + TAP TO OPEN */
 
 const intro=document.getElementById("intro");
 const introVideo=document.getElementById("introVideo");
@@ -1302,8 +1234,10 @@ const familyVideo=document.getElementById("familyVideo");
 const music=document.getElementById("music");
 const musicControl=document.getElementById("musicControl");
 const musicIcon=document.getElementById("musicIcon");
+const tapHint=document.getElementById("tapHint");
 
 let started=false;
+let introFinished=false;
 
 function setMusicIcon(){
 
@@ -1315,16 +1249,18 @@ function setMusicIcon(){
     "aria-label",
     playing?"Pause background nasheed":"Play background nasheed"
   );
-
 }
+
+/* Visitor taps the visible opening screen */
 
 async function beginInvitation(){
 
   if(started)return;
-
   started=true;
 
+  tapHint.style.display="none";
   musicControl.classList.add("visible");
+
   music.volume=.72;
 
   try{
@@ -1334,37 +1270,67 @@ async function beginInvitation(){
   }
 
   introVideo.muted=true;
-  introVideo.volume=0;
-
-  intro.classList.add("playing");
+  introVideo.currentTime=0;
 
   try{
     await introVideo.play();
   }catch(e){
+    console.log("Opening video could not play:",e);
     finishIntro();
   }
-
 }
 
 function finishIntro(){
 
-  if(intro.classList.contains("hidden"))return;
+  if(introFinished)return;
+  introFinished=true;
 
-  intro.classList.remove("playing");
   intro.classList.add("hidden");
 
-  familyVideo.muted=true;
-  familyVideo.loop=true;
-  familyVideo.play().catch(()=>{});
+  /* Reveal family video softly */
 
-  setTimeout(()=>{
-    document.getElementById("scrollCue").classList.add("show");
-  },2000);
+  familyVideo.currentTime=0;
+
+  familyVideo.play().then(()=>{
+
+    document.querySelector(".family-wrap").classList.add("reveal");
+
+  }).catch(()=>{
+
+    document.querySelector(".family-wrap").classList.add("reveal");
+
+  });
 
 }
 
+/* Opening screen tap */
+
 intro.addEventListener("click",beginInvitation);
+
+/* When opening video ends, reveal family video */
+
 introVideo.addEventListener("ended",finishIntro);
+
+/* FAMILY VIDEO: FREEZE AT LAST SECOND */
+
+familyVideo.addEventListener("timeupdate",()=>{
+
+  if(!familyVideo.duration || !isFinite(familyVideo.duration))return;
+
+  const remaining=familyVideo.duration-familyVideo.currentTime;
+
+  if(remaining<=1){
+
+    familyVideo.pause();
+    familyVideo.currentTime=Math.max(0,familyVideo.duration-1);
+
+    document.getElementById("scrollCue").classList.add("show");
+
+  }
+
+});
+
+/* MUSIC CONTROL */
 
 musicControl.addEventListener("click",()=>{
 
@@ -1375,11 +1341,12 @@ musicControl.addEventListener("click",()=>{
   }
 
   setMusicIcon();
-
 });
 
 music.addEventListener("play",setMusicIcon);
 music.addEventListener("pause",setMusicIcon);
+
+/* SCROLL */
 
 document.getElementById("scrollCue").addEventListener("click",()=>{
   document.querySelector(".welcome").scrollIntoView({
@@ -1387,22 +1354,18 @@ document.getElementById("scrollCue").addEventListener("click",()=>{
   });
 });
 
-/* SCRATCH CARDS WITH PINK GLITTER */
+/* SCRATCH CARDS */
 
 function createGlitter(x,y){
 
   const sparkle=document.createElement("span");
   sparkle.className="scratch-glitter";
-
   sparkle.style.left=x+"px";
   sparkle.style.top=y+"px";
 
   document.body.appendChild(sparkle);
 
-  setTimeout(()=>{
-    sparkle.remove();
-  },600);
-
+  setTimeout(()=>sparkle.remove(),600);
 }
 
 document.querySelectorAll(".scratch-card canvas").forEach(canvas=>{
@@ -1439,7 +1402,6 @@ document.querySelectorAll(".scratch-card canvas").forEach(canvas=>{
     ctx.fillText("✧",rect.width/2,rect.height/2+4);
 
     ctx.globalCompositeOperation="destination-out";
-
   }
 
   function scratch(e){
@@ -1482,12 +1444,8 @@ document.querySelectorAll(".scratch-card canvas").forEach(canvas=>{
       canvas.style.transition="opacity .7s ease";
       canvas.style.opacity="0";
 
-      setTimeout(()=>{
-        canvas.remove();
-      },750);
-
+      setTimeout(()=>canvas.remove(),750);
     }
-
   }
 
   canvas.addEventListener("pointerdown",e=>{
@@ -1507,7 +1465,6 @@ document.querySelectorAll(".scratch-card canvas").forEach(canvas=>{
   });
 
   sizeCanvas();
-
 });
 
 /* COUNTDOWN */
@@ -1533,13 +1490,12 @@ function updateCountdown(){
   document.getElementById("hours").textContent=String(h).padStart(2,"0");
   document.getElementById("minutes").textContent=String(m).padStart(2,"0");
   document.getElementById("seconds").textContent=String(s).padStart(2,"0");
-
 }
 
 updateCountdown();
 setInterval(updateCountdown,1000);
 
-/* VIDEO FRAME */
+/* VIDEO FRAME FIT */
 
 function fitVideoFrame(video){
 
@@ -1564,7 +1520,6 @@ function fitVideoFrame(video){
     const finalWidth=Math.min(maxWidth,maxHeight*ratio);
 
     card.style.width=finalWidth+"px";
-
   }
 
   video.addEventListener("loadedmetadata",updateFrame);
@@ -1572,7 +1527,6 @@ function fitVideoFrame(video){
   if(video.readyState>=1)updateFrame();
 
   window.addEventListener("resize",updateFrame);
-
 }
 
 const zehraVideo=document.getElementById("zehraVideo");
@@ -1581,7 +1535,7 @@ const wedVideo=document.getElementById("wedVideo");
 fitVideoFrame(zehraVideo);
 fitVideoFrame(wedVideo);
 
-/* VIDEO AUTOPLAY ON SCREEN */
+/* SCROLL VIDEO AUTOPLAY */
 
 const videoObserver=new IntersectionObserver(entries=>{
 
@@ -1606,19 +1560,15 @@ const videoObserver=new IntersectionObserver(entries=>{
       }catch(e){}
 
     }
-
   });
 
-},{
-  threshold:.15,
-  rootMargin:"0px"
-});
+},{threshold:.15,rootMargin:"0px"});
 
 document.querySelectorAll(".scroll-video").forEach(video=>{
   videoObserver.observe(video);
 });
 
-/* INDIA TO NAJAF PLANE ANIMATION */
+/* NAJAF PLANE ANIMATION */
 
 const najafSection=document.getElementById("najafSection");
 
@@ -1634,7 +1584,6 @@ if("IntersectionObserver" in window){
         observer.unobserve(najafSection);
 
       }
-
     });
 
   },{threshold:.25});
